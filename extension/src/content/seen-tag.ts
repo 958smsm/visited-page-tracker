@@ -10,6 +10,7 @@ interface ContentSettings {
 interface ContentState {
   normalizedUrl: string;
   previousVisitCount: number;
+  visitCount: number;
   firstVisitedAt: number | null;
   previousLastVisitedAt: number | null;
   storageMode: "perProfile" | "shared";
@@ -85,16 +86,16 @@ async function show(state: ContentState, settings: ContentSettings): Promise<voi
   tag.id = "vpt-tag";
   tag.tabIndex = 0;
   tag.setAttribute("role", "status");
-  tag.textContent = "SEEN";
-  tag.setAttribute("aria-label", `SEEN. Previously visited ${state.previousVisitCount} times.`);
+  tag.textContent = `SEEN ${state.visitCount}×`;
+  tag.setAttribute("aria-label", `SEEN ${state.visitCount} times.`);
   tag.setAttribute("aria-describedby", "vpt-tooltip");
 
   const tooltip = document.createElement("div");
   tooltip.id = "vpt-tooltip";
   tooltip.setAttribute("role", "tooltip");
   tooltip.textContent = settings.showVisitDetails
-    ? `Previously visited ${state.previousVisitCount} times\nFirst seen: ${format(state.firstVisitedAt, settings)}\nLast seen: ${format(state.previousLastVisitedAt, settings)}\nStorage: ${state.storageMode === "shared" ? "Shared" : "Per Profile"}`
-    : "Previously visited";
+    ? `Visited ${state.visitCount} times (${state.previousVisitCount} before this visit)\nFirst seen: ${format(state.firstVisitedAt, settings)}\nLast seen: ${format(state.previousLastVisitedAt, settings)}\nStorage: ${state.storageMode === "shared" ? "Shared" : "Per Profile"}`
+    : `Visited ${state.visitCount} times`;
 
   container.append(tag, tooltip);
   if (settings.tagDismissible) {

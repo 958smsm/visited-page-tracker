@@ -1,3 +1,9 @@
+# Visit Count in SEEN Tag — 1.0.4
+
+- The red webpage tag now displays the total recorded visit count in the compact format **SEEN 3×**.
+- The tag tooltip and accessible label now announce the total number of visits.
+- Detailed tooltips also show how many visits occurred before the current navigation.
+
 # Exact Page Tracking Exclusions — 1.0.3
 
 - Added **Disable tracking for current page** to the extension popup.
