@@ -86,7 +86,7 @@ async function show(state: ContentState, settings: ContentSettings): Promise<voi
   tag.id = "vpt-tag";
   tag.tabIndex = 0;
   tag.setAttribute("role", "status");
-  tag.textContent = `SEEN ${state.visitCount}×`;
+  tag.textContent = `SEEN ${state.visitCount} times`;
   tag.setAttribute("aria-label", `SEEN ${state.visitCount} times.`);
   tag.setAttribute("aria-describedby", "vpt-tooltip");
 
