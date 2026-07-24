@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Visited Page Tracker",
   "description": "Locally records page visits and marks pages that were visited before.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "minimum_chrome_version": "116",
   "incognito": "spanning",
   "permissions": [

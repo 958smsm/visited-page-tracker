@@ -3,7 +3,7 @@ import { NavigationDeduper, SessionDedupeStore } from "./dedupe.js";
 import { normalizeUrl } from "../normalization/normalize-url.js";
 import { createStorage } from "../storage/storage-factory.js";
 import type { ContentCommand } from "../shared/messages.js";
-import { domainMatches, urlPatternMatches } from "../shared/matchers.js";
+import { domainMatches, exactUrlMatches, urlPatternMatches } from "../shared/matchers.js";
 import { getSettings } from "../shared/settings.js";
 import type { DatabaseStatus, ExtensionSettings, TabPageState } from "../types/models.js";
 
@@ -92,6 +92,7 @@ export async function processNavigation(details: NavigationDetails): Promise<Tab
   const normalized = normalizeUrl(details.url, settings);
   if (!normalized
       || domainMatches(normalized.hostname, settings.excludedDomains)
+      || exactUrlMatches(normalized.normalizedUrl, settings.excludedPages)
       || urlPatternMatches(normalized.originalUrl, settings.excludedUrlPatterns)) {
     await hideForTab(details.tabId, settings);
     return null;

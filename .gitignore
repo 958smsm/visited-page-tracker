@@ -1,5 +1,5 @@
 # Node / TypeScript
-extension/node_modules/
+node_modules
 extension/.test-build/
 extension/dist/
 *.tsbuildinfo

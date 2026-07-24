@@ -31,6 +31,7 @@ export const DEFAULT_SETTINGS: ExtensionSettings = {
   unifyWww: false,
   ignoreQueryStrings: false,
   excludedDomains: [],
+  excludedPages: [],
   excludedUrlPatterns: [],
   neverStoreTitles: false,
   retentionDays: 0,
@@ -67,6 +68,9 @@ export function mergeSettings(value: unknown): ExtensionSettings {
     },
     excludedDomains: Array.isArray(partial.excludedDomains)
       ? partial.excludedDomains.filter((item): item is string => typeof item === "string")
+      : [],
+    excludedPages: Array.isArray(partial.excludedPages)
+      ? partial.excludedPages.filter((item): item is string => typeof item === "string")
       : [],
     excludedUrlPatterns: Array.isArray(partial.excludedUrlPatterns)
       ? partial.excludedUrlPatterns.filter((item): item is string => typeof item === "string")

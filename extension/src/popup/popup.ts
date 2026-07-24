@@ -18,7 +18,7 @@ async function load(): Promise<void> {
 function render(): void {
   const status = byId<HTMLHeadingElement>("status");
   const errorPanel = byId("errorPanel");
-  const buttons = ["forgetPage", "disableDomain"].map((id) => byId<HTMLButtonElement>(id));
+  const buttons = ["forgetPage", "disablePage", "disableDomain"].map((id) => byId<HTMLButtonElement>(id));
   if (!state) {
     status.textContent = "Not tracked";
     status.className = "status neutral";
@@ -56,6 +56,12 @@ byId("forgetPage").addEventListener("click", async () => {
   if (!confirm(`Forget all visits for ${state.normalizedUrl}?`)) return;
   await sendRequest({ type: "FORGET_CURRENT_PAGE", tabId });
   await load();
+});
+byId("disablePage").addEventListener("click", async () => {
+  if (tabId == null || !state) return;
+  if (!confirm(`Disable tracking for this exact page?\n\n${state.normalizedUrl}`)) return;
+  await sendRequest({ type: "DISABLE_CURRENT_PAGE", tabId });
+  window.close();
 });
 byId("disableDomain").addEventListener("click", async () => {
   if (tabId == null || !state) return;

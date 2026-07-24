@@ -136,6 +136,7 @@ export interface ExtensionSettings {
   unifyWww: boolean;
   ignoreQueryStrings: boolean;
   excludedDomains: string[];
+  excludedPages: string[];
   excludedUrlPatterns: string[];
   neverStoreTitles: boolean;
   retentionDays: number;

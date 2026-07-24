@@ -1,4 +1,4 @@
-import { registerNavigationListeners, getLatestTransition, getTabState, processNavigation, replayTabState, saveTabState } from "./navigation-tracker.js";
+import { clearTabState, registerNavigationListeners, getLatestTransition, getTabState, processNavigation, replayTabState, saveTabState } from "./navigation-tracker.js";
 import { updateBadge } from "./badge-manager.js";
 import { IndexedDbStorage } from "../storage/indexeddb-storage.js";
 import { NativeHostError, NativeStorage } from "../storage/native-storage.js";
@@ -136,6 +136,18 @@ async function handleRequest(request: RuntimeRequest, sender: any): Promise<unkn
       await chrome.tabs.sendMessage(request.tabId, { type: "HIDE_SEEN_TAG" }).catch(() => undefined);
       return { deleted: true };
     }
+    case "DISABLE_CURRENT_PAGE": {
+      const state = await getTabState(request.tabId);
+      if (!state) return settings;
+      const updated: ExtensionSettings = {
+        ...settings,
+        excludedPages: [...new Set([...settings.excludedPages, state.normalizedUrl])].sort()
+      };
+      await saveSettings(updated);
+      await clearTabState(request.tabId);
+      await chrome.tabs.sendMessage(request.tabId, { type: "HIDE_SEEN_TAG" }).catch(() => undefined);
+      return updated;
+    }
     case "DISABLE_CURRENT_DOMAIN": {
       const state = await getTabState(request.tabId);
       if (!state) return settings;
@@ -144,8 +156,8 @@ async function handleRequest(request: RuntimeRequest, sender: any): Promise<unkn
         excludedDomains: [...new Set([...settings.excludedDomains, state.hostname])].sort()
       };
       await saveSettings(updated);
+      await clearTabState(request.tabId);
       await chrome.tabs.sendMessage(request.tabId, { type: "HIDE_SEEN_TAG" }).catch(() => undefined);
-      await chrome.action.setBadgeText({ tabId: request.tabId, text: "" });
       return updated;
     }
     case "TEST_SHARED_CONNECTION": {

@@ -87,6 +87,7 @@
         <h2>Privacy</h2>
         <div class="grid two">
           <label>Excluded domains<textarea id="excludedDomains" rows="6" placeholder="example.com&#10;internal.company"></textarea><span class="hint">One domain per line; subdomains are included.</span></label>
+          <label>Excluded exact pages<textarea id="excludedPages" rows="6" placeholder="https://example.com/private/account"></textarea><span class="hint">One normalized URL per line. The popup adds entries here automatically.</span></label>
           <label>Excluded wildcard URL patterns<textarea id="excludedUrlPatterns" rows="6" placeholder="https://example.com/private/*"></textarea><span class="hint">Use * for any text and ? for one character.</span></label>
           <label class="toggle"><input id="neverStoreTitles" type="checkbox"> Never store page titles</label>
           <label>Automatic retention period<input id="retentionDays" type="number" min="0" max="36500" step="1"><span class="hint">0 keeps visits indefinitely.</span></label>

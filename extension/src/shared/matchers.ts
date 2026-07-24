@@ -10,6 +10,10 @@ export function domainMatches(hostname: string, excludedDomains: string[]): bool
   });
 }
 
+export function exactUrlMatches(url: string, excludedUrls: string[]): boolean {
+  return excludedUrls.some((candidate) => candidate.trim() === url);
+}
+
 export function wildcardToRegExp(pattern: string): RegExp | null {
   const trimmed = pattern.trim();
   if (!trimmed) return null;

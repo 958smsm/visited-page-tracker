@@ -21,6 +21,7 @@ export type RuntimeRequest =
   | { type: "EXPORT_DATA" }
   | { type: "IMPORT_DATA"; bundle: ExportBundle; mode: "merge" | "replace" }
   | { type: "FORGET_CURRENT_PAGE"; tabId: number }
+  | { type: "DISABLE_CURRENT_PAGE"; tabId: number }
   | { type: "DISABLE_CURRENT_DOMAIN"; tabId: number }
   | { type: "TEST_SHARED_CONNECTION"; config: DatabaseConfig }
   | { type: "OPEN_STORAGE_DIRECTORY"; config: DatabaseConfig }
@@ -47,7 +48,7 @@ export function isRuntimeRequest(value: unknown): value is RuntimeRequest {
   return typeof type === "string" && [
     "CONTENT_READY", "SPA_NAVIGATION", "GET_ACTIVE_PAGE_STATE", "GET_PAGE", "SEARCH_PAGES",
     "GET_VISIT_EVENTS", "GET_STATISTICS", "DELETE_PAGE", "DELETE_DOMAIN", "CLEAR_HISTORY",
-    "EXPORT_DATA", "IMPORT_DATA", "FORGET_CURRENT_PAGE", "DISABLE_CURRENT_DOMAIN",
+    "EXPORT_DATA", "IMPORT_DATA", "FORGET_CURRENT_PAGE", "DISABLE_CURRENT_PAGE", "DISABLE_CURRENT_DOMAIN",
     "TEST_SHARED_CONNECTION", "OPEN_STORAGE_DIRECTORY", "MIGRATE_STORAGE", "SETTINGS_UPDATED",
     "INTERNAL_RECORD_VISIT"
   ].includes(type);

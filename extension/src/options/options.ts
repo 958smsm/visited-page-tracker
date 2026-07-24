@@ -50,6 +50,7 @@ function populate(value: ExtensionSettings): void {
   input("sharedDirectory").value = value.sharedDatabase.directory;
   input("sharedFilename").value = value.sharedDatabase.filename;
   byId<HTMLTextAreaElement>("excludedDomains").value = value.excludedDomains.join("\n");
+  byId<HTMLTextAreaElement>("excludedPages").value = value.excludedPages.join("\n");
   byId<HTMLTextAreaElement>("excludedUrlPatterns").value = value.excludedUrlPatterns.join("\n");
   const radio = document.querySelector<HTMLInputElement>(`input[name="storageMode"][value="${value.storageMode}"]`);
   if (radio) radio.checked = true;
@@ -77,6 +78,7 @@ function collect(): ExtensionSettings {
     unifyWww: checkbox("unifyWww").checked,
     ignoreQueryStrings: checkbox("ignoreQueryStrings").checked,
     excludedDomains: uniqueStrings(parseLines(byId<HTMLTextAreaElement>("excludedDomains").value)),
+    excludedPages: uniqueStrings(parseLines(byId<HTMLTextAreaElement>("excludedPages").value)),
     excludedUrlPatterns: uniqueStrings(parseLines(byId<HTMLTextAreaElement>("excludedUrlPatterns").value)),
     neverStoreTitles: checkbox("neverStoreTitles").checked,
     retentionDays: Math.max(0, Math.floor(Number(input("retentionDays").value) || 0)),

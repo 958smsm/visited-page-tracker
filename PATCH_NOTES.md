@@ -1,3 +1,12 @@
+# Exact Page Tracking Exclusions — 1.0.3
+
+- Added **Disable tracking for current page** to the extension popup.
+- Exact page exclusions use the current normalized URL, so they follow the configured query-string, fragment, HTTP/HTTPS, and `www` normalization rules.
+- Exact exclusions are stored separately from wildcard patterns, avoiding accidental wildcard behavior from `?` characters in query strings.
+- Added an **Excluded exact pages** list under Settings → Privacy for reviewing, editing, or removing page exclusions.
+- Disabling a page or domain now clears the current tab badge and hides the SEEN tag immediately.
+- Existing visit history is preserved; use **Forget current page** separately when the stored history should also be deleted.
+
 # Shared Storage Connection Reliability — 1.0.2
 
 - Replaced the fragile `C:\Users\%username%\...` default with `%LOCALAPPDATA%\Google\Chrome\User Data\Global\VisitedPageTracker`.

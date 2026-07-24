@@ -26,8 +26,9 @@ Replace these placeholders with real captures after loading the unpacked extensi
 - Stores normalized URL keys, original URLs, page titles, first/last visit times, visit counts, complete timestamp history, incognito flags, transition types, and storage source.
 - Shows a dismissible, keyboard-accessible Shadow DOM **SEEN** tag only when the page was already present before the current visit.
 - Provides a live popup, configurable action badge, full paginated history UI, statistics, filters, bulk deletion, JSON/CSV export, and validated JSON import.
+- Lets the popup disable tracking for the exact current normalized page or for the current domain and its subdomains.
 - Provides explicit storage-mode migration with merge or replace behavior while preserving the source database.
-- Supports configurable retention, excluded domains, wildcard URL patterns, title suppression, and URL normalization options.
+- Supports configurable retention, excluded exact pages, excluded domains, wildcard URL patterns, title suppression, and URL normalization options.
 - Uses atomic IndexedDB transactions and SQLite `BEGIN IMMEDIATE` transactions.
 - Uses SQLite foreign keys, indexes, busy timeout, WAL where supported, bounded lock retries, atomic import, and replace-mode backups.
 - Uses chunked shared exports and staged native-port imports so large transfers are validated before one database commit.

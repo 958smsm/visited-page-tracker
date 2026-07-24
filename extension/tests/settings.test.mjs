@@ -17,3 +17,11 @@ test("blank shared directory uses the safe Windows default", () => {
   assert.equal(settings.sharedDatabase.directory, DEFAULT_SHARED_DIRECTORY);
   assert.equal(settings.sharedDatabase.filename, "visited_page_tracker.sqlite3");
 });
+
+test("page exclusions default safely and preserve valid stored URLs", () => {
+  assert.deepEqual(mergeSettings({}).excludedPages, []);
+  assert.deepEqual(
+    mergeSettings({ excludedPages: ["https://example.com/private", 42, null] }).excludedPages,
+    ["https://example.com/private"]
+  );
+});

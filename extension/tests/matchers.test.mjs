@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import matchers from "../.test-build/src/shared/matchers.js";
 
-const { domainMatches, urlPatternMatches, wildcardToRegExp } = matchers;
+const { domainMatches, exactUrlMatches, urlPatternMatches, wildcardToRegExp } = matchers;
 
 test("excluded domains include subdomains but not suffix lookalikes", () => {
   assert.equal(domainMatches("docs.example.com", ["example.com"]), true);
@@ -12,4 +12,10 @@ test("excluded domains include subdomains but not suffix lookalikes", () => {
 test("wildcard URL patterns support star and question mark", () => {
   assert.equal(urlPatternMatches("https://example.com/private/abc", ["https://example.com/private/*"]), true);
   assert.equal(wildcardToRegExp("https://example.com/item/?").test("https://example.com/item/7"), true);
+});
+
+test("exact page exclusions do not treat query punctuation as wildcards", () => {
+  const excluded = ["https://example.com/item?id=7"];
+  assert.equal(exactUrlMatches("https://example.com/item?id=7", excluded), true);
+  assert.equal(exactUrlMatches("https://example.com/itemXid=7", excluded), false);
 });
