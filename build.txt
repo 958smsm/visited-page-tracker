@@ -1,0 +1,33 @@
+cd D:\Projects\Repos\visited-page-tracker\extension
+
+Remove-Item .\dist -Recurse -Force -ErrorAction SilentlyContinue
+
+npx tsc -p .\tsconfig.json
+
+Copy-Item .\manifest.json .\dist\manifest.json -Force
+Copy-Item .\assets .\dist\assets -Recurse -Force
+
+foreach ($area in @("content", "popup", "options", "history")) {
+    $target = ".\dist\src\$area"
+    New-Item -ItemType Directory -Force -Path $target | Out-Null
+
+    Copy-Item ".\src\$area\*.html" $target `
+        -Force -ErrorAction SilentlyContinue
+
+    Copy-Item ".\src\$area\*.css" $target `
+        -Force -ErrorAction SilentlyContinue
+}
+
+Test-Path .\dist\manifest.json
+Get-ChildItem .\dist
+
+D:\Projects\Repos\visited-page-tracker\extension\dist
+
+Remove-Item .\dist -Recurse -Force -ErrorAction SilentlyContinue
+
+npm test
+npm run build
+
+Test-Path .\dist\manifest.json
+
+

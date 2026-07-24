@@ -1,0 +1,9 @@
+{
+  "name": "com.visited_page_tracker.host",
+  "description": "Visited Page Tracker shared SQLite native messaging host",
+  "path": "__HOST_PATH__",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://__EXTENSION_ID__/"
+  ]
+}

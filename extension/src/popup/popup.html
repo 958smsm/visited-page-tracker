@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Visited Page Tracker</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <p class="eyebrow">Visited Page Tracker</p>
+        <h1 id="status" class="status neutral">Loading…</h1>
+      </div>
+      <span id="countPill" class="count-pill">—</span>
+    </header>
+
+    <section id="errorPanel" class="error-panel hidden" role="alert"></section>
+
+    <section class="card details" aria-label="Current page details">
+      <dl>
+        <div><dt>Normalized URL</dt><dd id="normalizedUrl">—</dd></div>
+        <div><dt>Visit count</dt><dd id="visitCount">—</dd></div>
+        <div><dt>First visit</dt><dd id="firstVisit">—</dd></div>
+        <div><dt>Last visit</dt><dd id="lastVisit">—</dd></div>
+        <div><dt>Current visit</dt><dd id="currentVisit">—</dd></div>
+        <div><dt>Storage mode</dt><dd id="storageMode">—</dd></div>
+        <div><dt>Database status</dt><dd id="databaseStatus">—</dd></div>
+      </dl>
+    </section>
+
+    <section class="actions" aria-label="Actions">
+      <button id="openHistory" class="primary">Open full history</button>
+      <button id="forgetPage">Forget current page</button>
+      <button id="disableDomain">Disable tracking for domain</button>
+      <button id="openSettings">Open settings</button>
+    </section>
+  </main>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

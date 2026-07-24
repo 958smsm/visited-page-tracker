@@ -1,0 +1,10 @@
+$ExtensionId = "anpaknofkfeniopccfbmlacpccecaocd"
+$ProjectRoot = "D:\Projects\Repos\visited-page-tracker"
+
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+
+cd "$ProjectRoot\native-host"
+
+.\uninstall-host.ps1 -Confirm:$false
+
+.\install-host.ps1 -ExtensionId $ExtensionId

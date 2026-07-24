@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Visited Page Tracker Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Visited Page Tracker</p>
+      <h1>Settings</h1>
+      <p>All browsing data remains on this device.</p>
+    </div>
+    <div id="saveStatus" class="save-status" role="status">Ready</div>
+  </header>
+
+  <main>
+    <div id="lastError" class="last-error hidden" role="alert"></div>
+    <form id="settingsForm">
+      <section class="panel">
+        <h2>General</h2>
+        <div class="grid two">
+          <label class="toggle"><input id="trackingEnabled" type="checkbox"> Enable visit tracking</label>
+          <label class="toggle"><input id="seenTagEnabled" type="checkbox"> Enable the SEEN tag</label>
+          <label>Tag position<select id="tagPosition"><option value="top-right">Top right</option><option value="top-left">Top left</option><option value="bottom-right">Bottom right</option><option value="bottom-left">Bottom left</option></select></label>
+          <label>Tag size<select id="tagSize"><option value="small">Small</option><option value="medium">Medium</option><option value="large">Large</option></select></label>
+          <label>Tag opacity<input id="tagOpacity" type="range" min="0.2" max="1" step="0.05"><output id="tagOpacityOutput"></output></label>
+          <label>Date and time format<select id="dateFormat"><option value="locale">Local format</option><option value="iso">ISO 8601</option><option value="relative">Relative</option></select></label>
+          <label class="toggle"><input id="tagDismissible" type="checkbox"> Allow tag dismissal</label>
+          <label class="toggle"><input id="showVisitDetails" type="checkbox"> Show details in tooltip</label>
+          <label class="toggle"><input id="includeIncognitoVisits" type="checkbox"> Include incognito visits</label>
+          <label class="toggle"><input id="countReloads" type="checkbox"> Count reloads</label>
+          <label class="toggle"><input id="countSpaRoutes" type="checkbox"> Count SPA route changes</label>
+          <label>New-page badge<select id="badgeNewPageBehavior"><option value="hidden">No badge</option><option value="zero">Show 0</option></select></label>
+          <label class="toggle"><input id="enableFileUrls" type="checkbox"> Track file:// URLs when Chrome access is granted</label>
+        </div>
+        <p class="hint">Incognito tracking also requires enabling “Allow in Incognito” on Chrome’s extension details page. File tracking requires Chrome’s “Allow access to file URLs” permission.</p>
+      </section>
+
+      <section class="panel">
+        <h2>URL normalization</h2>
+        <div class="grid two">
+          <label class="toggle"><input id="includeFragments" type="checkbox"> Include URL fragments</label>
+          <label class="toggle"><input id="ignoreTrackingParameters" type="checkbox"> Ignore common tracking parameters</label>
+          <label class="toggle"><input id="unifyHttpHttps" type="checkbox"> Treat HTTP and HTTPS as the same page</label>
+          <label class="toggle"><input id="unifyWww" type="checkbox"> Treat www and bare hosts as the same</label>
+          <label class="toggle"><input id="ignoreQueryStrings" type="checkbox"> Ignore query strings</label>
+        </div>
+        <p class="hint warning">Changing normalization can create new keys for pages already stored. Existing records are not rewritten automatically.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Storage</h2>
+        <fieldset class="radio-row">
+          <legend>Storage mode</legend>
+          <label><input name="storageMode" type="radio" value="perProfile"> Per Profile</label>
+          <label><input name="storageMode" type="radio" value="shared"> Shared</label>
+        </fieldset>
+        <p class="hint">Changing modes does not delete the source database. You can migrate or merge data before or after switching.</p>
+        <div id="sharedSettings" class="shared-settings">
+          <div class="grid two">
+            <label>Custom directory path<input id="sharedDirectory" type="text" placeholder="%LOCALAPPDATA%\Google\Chrome\User Data\Global\VisitedPageTracker" autocomplete="off"></label>
+            <label>Database filename<input id="sharedFilename" type="text" value="visited_page_tracker.sqlite3" autocomplete="off"></label>
+          </div>
+          <dl class="status-list">
+            <div><dt>Full resolved path</dt><dd id="resolvedPath">Not tested</dd></div>
+            <div><dt>Native host</dt><dd id="nativeStatus">Not tested</dd></div>
+          </dl>
+          <div class="button-row">
+            <button id="testConnection" type="button" class="primary">Test Connection</button>
+            <button id="openDirectory" type="button">Open Storage Directory</button>
+          </div>
+          <div class="migration-box">
+            <label class="toggle"><input id="mergeMigration" type="checkbox" checked> Merge rather than replace</label>
+            <div class="button-row">
+              <button id="migrateToShared" type="button">Migrate Per-Profile Data to Shared</button>
+              <button id="migrateToProfile" type="button">Migrate Shared Data to Per-Profile</button>
+            </div>
+            <p id="migrationStatus" class="hint" role="status"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Privacy</h2>
+        <div class="grid two">
+          <label>Excluded domains<textarea id="excludedDomains" rows="6" placeholder="example.com&#10;internal.company"></textarea><span class="hint">One domain per line; subdomains are included.</span></label>
+          <label>Excluded wildcard URL patterns<textarea id="excludedUrlPatterns" rows="6" placeholder="https://example.com/private/*"></textarea><span class="hint">Use * for any text and ? for one character.</span></label>
+          <label class="toggle"><input id="neverStoreTitles" type="checkbox"> Never store page titles</label>
+          <label>Automatic retention period<input id="retentionDays" type="number" min="0" max="36500" step="1"><span class="hint">0 keeps visits indefinitely.</span></label>
+        </div>
+        <div class="danger-zone">
+          <div><strong>Clear visit history</strong><p>Deletes all pages and visit events from the currently selected storage.</p></div>
+          <button id="clearHistory" type="button" class="danger">Clear Current Storage</button>
+        </div>
+      </section>
+
+      <div class="sticky-actions"><button type="submit" class="primary large">Save settings</button></div>
+    </form>
+  </main>
+  <script type="module" src="options.js"></script>
+</body>
+</html>

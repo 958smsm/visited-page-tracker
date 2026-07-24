@@ -1,0 +1,15 @@
+$HostName = "com.visited_page_tracker.host"
+$RegistryPath = "HKCU:\Software\Google\Chrome\NativeMessagingHosts\$HostName"
+
+$ManifestPath = (Get-Item $RegistryPath).GetValue("")
+$Manifest = Get-Content $ManifestPath -Raw | ConvertFrom-Json
+$ExpectedOrigin = "chrome-extension://$ExtensionId/"
+
+[PSCustomObject]@{
+    RegistryManifest = $ManifestPath
+    HostExecutable    = $Manifest.path
+    ExpectedOrigin    = $ExpectedOrigin
+    AllowedOrigins    = ($Manifest.allowed_origins -join ", ")
+    OriginMatches     = $Manifest.allowed_origins -contains $ExpectedOrigin
+    HostExists        = Test-Path $Manifest.path
+}

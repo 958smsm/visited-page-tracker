@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Visited Page Tracker History</title>
+  <link rel="stylesheet" href="history.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Visited Page Tracker</p>
+      <h1>Visit history</h1>
+    </div>
+    <div class="top-actions">
+      <button id="openSettings">Settings</button>
+      <button id="exportJson">Export JSON</button>
+      <button id="exportCsv">Export CSV</button>
+      <button id="chooseImport">Import</button>
+      <input id="importFile" type="file" accept="application/json,.json" hidden>
+    </div>
+  </header>
+
+  <main>
+    <section class="stats-grid" aria-label="Summary statistics">
+      <article><span>Total tracked pages</span><strong id="statPages">—</strong></article>
+      <article><span>Total visits</span><strong id="statVisits">—</strong></article>
+      <article><span>Pages visited today</span><strong id="statToday">—</strong></article>
+      <article><span>Most visited domain</span><strong id="statDomain">—</strong></article>
+      <article><span>Most visited page</span><strong id="statPage">—</strong></article>
+    </section>
+
+    <section class="panel chart-panel">
+      <h2>Per-day visit totals</h2>
+      <div id="dailyChart" class="daily-chart" aria-label="Per-day visit totals"></div>
+    </section>
+
+    <section class="panel filters">
+      <div class="filter-grid">
+        <label>Search<input id="search" type="search" placeholder="Title, URL, or domain"></label>
+        <label>URL filter<input id="urlFilter" type="text" placeholder="/docs or example.com/path"></label>
+        <label>Domain filter<input id="domainFilter" type="text" placeholder="example.com"></label>
+        <label>From date<input id="dateFrom" type="date"></label>
+        <label>To date<input id="dateTo" type="date"></label>
+        <label>Minimum visits<input id="minCount" type="number" min="0"></label>
+        <label>Maximum visits<input id="maxCount" type="number" min="0"></label>
+        <label>Storage source<select id="storageSource"><option value="">All sources</option><option value="per-profile">Per Profile</option><option value="shared">Shared</option></select></label>
+        <label>Sort by<select id="sortField"><option value="lastVisit">Last visit</option><option value="firstVisit">First visit</option><option value="count">Visit count</option><option value="url">URL</option><option value="domain">Domain</option></select></label>
+        <label>Order<select id="sortDirection"><option value="desc">Descending</option><option value="asc">Ascending</option></select></label>
+      </div>
+      <div class="filter-actions"><button id="applyFilters" class="primary">Apply filters</button><button id="resetFilters">Reset</button></div>
+    </section>
+
+    <section class="panel table-panel">
+      <div class="table-toolbar">
+        <div><strong id="resultCount">0 records</strong><span id="selectionCount">0 selected</span></div>
+        <div class="button-row">
+          <button id="deleteSelected" disabled>Delete selected</button>
+          <button id="deleteDomain" disabled>Delete this domain</button>
+          <button id="clearAll" class="danger">Clear all history</button>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th><input id="selectPage" type="checkbox" aria-label="Select all rows on this page"></th><th>Page</th><th>Domain</th><th>Count</th><th>First visit</th><th>Last visit</th><th>Source</th></tr></thead>
+          <tbody id="recordsBody"></tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <button id="previousPage">Previous</button>
+        <span id="pageInfo">Page 1</span>
+        <button id="nextPage">Next</button>
+        <label>Rows<select id="pageSize"><option>25</option><option>50</option><option>100</option></select></label>
+      </div>
+    </section>
+
+    <section id="detailsPanel" class="panel details-panel hidden" aria-live="polite">
+      <div class="details-heading"><div><p class="eyebrow">Selected page</p><h2 id="detailTitle">Visit timestamps</h2><p id="detailUrl"></p></div><button id="closeDetails" aria-label="Close visit details">Close</button></div>
+      <ol id="visitEvents" class="visit-events"></ol>
+    </section>
+
+    <section id="importPanel" class="panel hidden">
+      <h2>Import preview</h2>
+      <p id="importPreview">Choose a JSON export.</p>
+      <div class="button-row">
+        <label class="inline"><input id="importMerge" type="radio" name="importMode" value="merge" checked> Merge</label>
+        <label class="inline"><input id="importReplace" type="radio" name="importMode" value="replace"> Replace current storage</label>
+        <button id="confirmImport" class="primary" disabled>Import validated data</button>
+        <button id="cancelImport">Cancel</button>
+      </div>
+      <p id="importStatus" role="status"></p>
+    </section>
+
+    <label class="export-settings"><input id="includeSettings" type="checkbox"> Include extension settings in JSON exports</label>
+  </main>
+  <script type="module" src="history.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+<rect width="1200" height="720" fill="#0f172a"/><rect x="80" y="80" width="1040" height="560" rx="28" fill="#f8fafc"/>
+<rect x="120" y="120" width="170" height="52" rx="10" fill="#dc2626"/><text x="205" y="154" text-anchor="middle" font-family="system-ui" font-size="24" font-weight="800" fill="white">SEEN</text>
+<text x="120" y="270" font-family="system-ui" font-size="54" font-weight="800" fill="#0f172a">Popup screenshot</text>
+<text x="120" y="330" font-family="system-ui" font-size="27" fill="#475569">Capture the NEW/SEEN popup state here.</text>
+<rect x="120" y="390" width="760" height="22" rx="11" fill="#cbd5e1"/><rect x="120" y="438" width="900" height="22" rx="11" fill="#e2e8f0"/><rect x="120" y="486" width="630" height="22" rx="11" fill="#e2e8f0"/>
+</svg>

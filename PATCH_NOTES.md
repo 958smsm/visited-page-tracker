@@ -1,0 +1,14 @@
+# Shared Storage Connection Reliability — 1.0.2
+
+- Replaced the fragile `C:\Users\%username%\...` default with `%LOCALAPPDATA%\Google\Chrome\User Data\Global\VisitedPageTracker`.
+- Existing settings using the old `%username%` placeholder are upgraded automatically.
+- The Windows installer creates the shared directory and `visited_page_tracker.sqlite3` for the current user.
+- The installer now tests both Native Messaging connectivity and SQLite database access.
+- Shared-mode save errors now include the native host's actual error message.
+- Every native-port request now has a 10-second timeout and settles on matching response, host error, disconnect, Chrome `lastError`, invalid response, mismatched ID, or timeout.
+- The Options connection button is always restored in `finally`; Shared mode is not retained or saved after a failed test, and there is no IndexedDB fallback.
+- The installer now verifies the absolute HKCU manifest registration and exact `chrome-extension://<id>/` origin after writing it.
+- `test-installation.ps1` diagnoses registry, manifest, launcher, origin, Python, directory, SQLite, and direct framed host connectivity.
+- Windows path expansion, filename validation, SQLite busy bounds, protocol framing, tests, and build output were hardened.
+
+After rebuilding/reloading `extension/dist`, rerun `install-host.ps1` with the exact ID shown for that loaded extension and then run `test-installation.ps1` with the same ID.
