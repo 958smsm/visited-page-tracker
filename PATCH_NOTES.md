@@ -1,3 +1,10 @@
+# Auto-Hiding SEEN Tag — 1.0.5
+
+- The red webpage tag now uses the wording **SEEN 3 times**.
+- The tag automatically hides five seconds after it appears.
+- A new page or SPA navigation resets the timer, so the latest tag receives a full five-second display period.
+- Manual dismissal and background hide commands cancel any pending timer.
+
 # Visit Count in SEEN Tag — 1.0.4
 
 - The red webpage tag now displays the total recorded visit count in the compact format **SEEN 3×**.

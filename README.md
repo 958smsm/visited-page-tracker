@@ -1,6 +1,6 @@
 # Visited Page Tracker
 
-Visited Page Tracker is a local-only Chrome Extension Manifest V3 project that records page visits and places a red **SEEN 3×**-style tag on pages that existed in the selected visit database before the current navigation.
+Visited Page Tracker is a local-only Chrome Extension Manifest V3 project that records page visits and briefly places a red **SEEN 3 times**-style tag on pages that existed in the selected visit database before the current navigation.
 
 The project supports two independent storage backends:
 
@@ -24,7 +24,7 @@ Replace these placeholders with real captures after loading the unpacked extensi
 - Tracks top-frame HTTP and HTTPS navigations, reloads, redirects, back/forward navigation, and SPA route changes.
 - Supports `history.pushState`, `history.replaceState`, `popstate`, and fragment navigation when fragment tracking is enabled.
 - Stores normalized URL keys, original URLs, page titles, first/last visit times, visit counts, complete timestamp history, incognito flags, transition types, and storage source.
-- Shows a dismissible, keyboard-accessible Shadow DOM **SEEN &lt;count&gt;×** tag only when the page was already present before the current visit.
+- Shows a dismissible, keyboard-accessible Shadow DOM **SEEN &lt;count&gt; times** tag for five seconds only when the page was already present before the current visit.
 - Provides a live popup, configurable action badge, full paginated history UI, statistics, filters, bulk deletion, JSON/CSV export, and validated JSON import.
 - Lets the popup disable tracking for the exact current normalized page or for the current domain and its subdomains.
 - Provides explicit storage-mode migration with merge or replace behavior while preserving the source database.
@@ -337,7 +337,7 @@ Use the ID from the currently loaded `extension\dist`, not an older build or a d
 1. Visit a page for the first time.
 2. Confirm no SEEN count tag appears.
 3. Reload the page.
-4. Confirm the red tag appears as **SEEN 2×**.
+4. Confirm the red tag appears as **SEEN 2 times** and disappears after five seconds.
 5. Confirm the visit count becomes 2.
 6. Open the same URL in another tab.
 7. Confirm the count increases.

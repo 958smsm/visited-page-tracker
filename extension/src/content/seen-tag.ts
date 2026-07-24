@@ -20,6 +20,7 @@ type ContentCommand =
   | { type: "HIDE_SEEN_TAG" };
 
 (() => {
+const TAG_VISIBLE_DURATION_MS = 5_000;
 const HOST_ID = `visited-page-tracker-seen-tag-host-${chrome.runtime.id}`;
 let host: HTMLElement | null = null;
 let shadow: ShadowRoot | null = null;
@@ -27,6 +28,22 @@ let currentUrl = "";
 let dismissedUrl = "";
 let observer: MutationObserver | null = null;
 let stylesheetText = "";
+let hideTimer: number | null = null;
+let renderToken = 0;
+
+function clearHideTimer(): void {
+  if (hideTimer === null) return;
+  window.clearTimeout(hideTimer);
+  hideTimer = null;
+}
+
+function scheduleHide(token: number): void {
+  clearHideTimer();
+  hideTimer = window.setTimeout(() => {
+    hideTimer = null;
+    if (token === renderToken) hide();
+  }, TAG_VISIBLE_DURATION_MS);
+}
 
 async function loadStyles(): Promise<string> {
   if (stylesheetText) return stylesheetText;
@@ -73,9 +90,12 @@ function format(timestamp: number | null, settings: ContentSettings): string {
 }
 
 async function show(state: ContentState, settings: ContentSettings): Promise<void> {
+  const token = ++renderToken;
+  clearHideTimer();
   currentUrl = state.normalizedUrl;
   if (!settings.seenTagEnabled || dismissedUrl === currentUrl) return hide();
   const root = await ensureHost();
+  if (token !== renderToken) return;
   root.querySelector("#vpt-container")?.remove();
   const container = document.createElement("div");
   container.id = "vpt-container";
@@ -111,9 +131,12 @@ async function show(state: ContentState, settings: ContentSettings): Promise<voi
     container.append(dismiss);
   }
   root.append(container);
+  scheduleHide(token);
 }
 
 function hide(): void {
+  renderToken += 1;
+  clearHideTimer();
   shadow?.querySelector("#vpt-container")?.remove();
 }
 
